@@ -18,10 +18,33 @@ TEST_QUESTIONS = [b'Am I awesome?', b'Will I pass this class?',
 
 class EightBallClient:
     def __init__(self, host, port):
-        pass
+        self.hostname = host
+        self.port = port
+
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.connect((self.hostname, self.port))
+        self.byte_string_buffer = ""
+        print('Client has been assigned socket name', self.sock.getsockname())
     
-    def recv_until_delimiters(self, delimiters, buffer_size=1024) :        
-        pass
+    def recv_until_delimiters(self, delimiters, buffer_size=1024) :
+        byte_string = ""
+        if len(self.byte_string_buffer) != 0:
+            # [len(delimiter):] == delimiter: # if the buffer doesn't end with a delimiter, put the new call
+            byte_string = self.byte_string_buffer
+        else:
+            byte_string = self.sock.recv(buffer_size)
+
+        while byte_string.find(delimiters) == -1:  # if delimiter is not included, then merge.
+            temp_byte_string = self.sock.recv(buffer_size)
+            byte_string = b"".join((byte_string, temp_byte_string))
+        # Now that there is a delimiter, either return the message that ends with a delimiter
+
+        if byte_string.endswith(delimiters):
+            return byte_string[:byte_string.index(delimiters)]
+            # and return the first one in the list.
+            self.byte_string_buffer = byte_string[byte_string.index(delimiter) + 1:]
+        else:  # or return everything up until the delimiter and then store the rest in a buffer
+            return byte_string[:byte_string.index(delimiters)]
 
     def ask_question(self, question):
         pass
@@ -30,7 +53,7 @@ class EightBallClient:
         pass
         
     def close(self):
-        pass
+        self.sock.close()
 
 
 def run_interactive_client(host, port):

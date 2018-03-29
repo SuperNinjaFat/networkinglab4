@@ -26,7 +26,7 @@ class EightBallClient:
         self.byte_string_buffer = ""
         print('Client has been assigned socket name', self.sock.getsockname())
     
-    def recv_until_delimiters(self, delimiters, buffer_size=1024) :
+    def recv_until_delimiters(self, delimiters, buffer_size=1024):
         byte_string = ""
         if len(self.byte_string_buffer) != 0:
             # [len(delimiter):] == delimiter: # if the buffer doesn't end with a delimiter, put the new call

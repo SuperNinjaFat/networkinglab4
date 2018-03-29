@@ -33,17 +33,17 @@ class EightBallClient:
             # [len(delimiter):] == delimiter: # if the buffer doesn't end with a delimiter, put the new call
             byte_string = self.byte_string_buffer
         else:
-            byte_string = self.sock.recv(constants.MAX_BYTES)
+            byte_string = self.sock.recv(buffer_size)
 
-        for delimiter in delimeters:
-            while byte_string.find(delimiter) == -1:  # if delimiter is not included, then merge.
-                temp_byte_string = self.sock.recv(constants.MAX_BYTES)
+        for delimiter_temp in delimiters:
+            while byte_string.find(delimiter_temp) == -1:  # if delimiter is not included, then merge.
+                temp_byte_string = self.sock.recv(buffer_size)
                 byte_string = b"".join((byte_string, temp_byte_string))
                 if temp_byte_string == b"":
                     raise EOFError('Socket Closed or Down')
         # Now that there is a delimiter, either return the message that ends with a delimiter
 
-        messages = byte_string.split(delimiter, 1)
+        messages = byte_string.split(delimiter_temp, 1)#### Not sure that delimiter_temp is the right variable.
 
         #zero is what we want to return and the one position is what we put in buffer
         self.byte_string_buffer = messages[1]

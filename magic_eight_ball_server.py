@@ -19,7 +19,7 @@ class EightBallServer:
     def data_received(self, data):
         self.data += data
         if self.data.endswith(b'?'):
-            answer = zen_utils.get_answer(self.data)
+            answer = "temp answer" # zen_utils.get_answer(self.data) # use the answers from the wiki website
             self.transport.write(answer)
             self.data = b''
 

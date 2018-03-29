@@ -17,6 +17,7 @@ TEST_QUESTIONS = [b'Am I awesome?', b'Will I pass this class?',
                   b'Will a single threaded server suffice?']
 
 class EightBallClient:
+
     def __init__(self, host, port):
         self.hostname = host
         self.port = port
@@ -26,25 +27,28 @@ class EightBallClient:
         self.byte_string_buffer = ""
         print('Client has been assigned socket name', self.sock.getsockname())
     
-    def recv_until_delimiters(self, delimiters, buffer_size=1024):
+    def recv_until_delimiters(self, delimiters, buffer_size=1024) :
         byte_string = ""
-        if len(self.byte_string_buffer) != 0:
+        if len(self.byte_string_buffer) != 0 :
             # [len(delimiter):] == delimiter: # if the buffer doesn't end with a delimiter, put the new call
             byte_string = self.byte_string_buffer
         else:
-            byte_string = self.sock.recv(buffer_size)
+            byte_string = self.sock.recv(constants.MAX_BYTES)
 
-        while byte_string.find(delimiters) == -1:  # if delimiter is not included, then merge.
-            temp_byte_string = self.sock.recv(buffer_size)
-            byte_string = b"".join((byte_string, temp_byte_string))
+        for delimiter in delimeters:
+            while byte_string.find(delimiter) == -1:  # if delimiter is not included, then merge.
+                temp_byte_string = self.sock.recv(constants.MAX_BYTES)
+                byte_string = b"".join((byte_string, temp_byte_string))
+                if temp_byte_string == b"":
+                    raise EOFError('Socket Closed or Down')
         # Now that there is a delimiter, either return the message that ends with a delimiter
 
-        if byte_string.endswith(delimiters):
-            return byte_string[:byte_string.index(delimiters)]
-            # and return the first one in the list.
-            self.byte_string_buffer = byte_string[byte_string.index(delimiter) + 1:]
-        else:  # or return everything up until the delimiter and then store the rest in a buffer
-            return byte_string[:byte_string.index(delimiters)]
+        messages = byte_string.split(delimiter, 1)
+
+        #zero is what we want to return and the one position is what we put in buffer
+        self.byte_string_buffer = messages[1]
+        # and return the first one in the list.
+        return messages[0]
 
     def ask_question(self, question):
         pass

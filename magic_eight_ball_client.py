@@ -12,6 +12,7 @@ Prof. Joshua Auerbach (jauerbach@champlain.edu)
 import socket
 import argparse
 import time
+import magic_eight_ball_server
 TEST_QUESTIONS = [b'Am I awesome?', b'Will I pass this class?',
                   b'Will a single threaded server suffice?']
 
@@ -63,8 +64,7 @@ class EightBallClient:
         return self.recv_until_delimiters(self, RESPONSE_DELIMITERS)
 
     def close(self):
-        """closes the socket"""
-        pass
+        self.sock.close()
 
 
 def run_interactive_client(host, port):
@@ -74,7 +74,15 @@ def run_interactive_client(host, port):
     #   -use the client to ask the question
     #   -use the client to receive the next response
     #   -print response
-    pass
+    EightBallClient(host, port)
+    #looping questions
+    for i in range(TEST_QUESTIONS.length()):
+        ask_question(TEST_QUESTIONS[i])
+        #recieve in loop
+        answer = recv_next_response()
+        #print
+        print(answer)
+        #done
 
 def run_single_test_client(host, port):
     # TODO:

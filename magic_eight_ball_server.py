@@ -9,7 +9,12 @@ Prof. Joshua Auerbach (jauerbach@champlain.edu)
 
 
 # Adapted from srv_asyncio1.py
-class EightBallServer:
+import asyncio, magic_eight_ball_client
+
+
+answers = [ b"NO!", b"I'm sorry but NO!", b"Stop asking me to do the impossible."]
+
+class EightBallServer(asyncio.Protocol):
     def connection_made(self, transport):
         self.transport = transport
         self.address = transport.get_extra_info('peername')
@@ -19,7 +24,7 @@ class EightBallServer:
     def data_received(self, data):
         self.data += data
         if self.data.endswith(b'?'):
-            answer = "temp answer" # zen_utils.get_answer(self.data) # use the answers from the wiki website
+            answer = magic_eight_ball_client.get_answer(self.data) # use the answers from the wiki website
             self.transport.write(answer)
             self.data = b''
 
@@ -31,4 +36,5 @@ class EightBallServer:
                   .format(self.address, self.data))
         else:
             print('Client {} closed socket'.format(self.address))
+
 

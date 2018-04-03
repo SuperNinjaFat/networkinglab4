@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc5ef304-ff73-4579-8ce0-2a69ddea15b0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magic_eight_ball_client.py" afterPath="$PROJECT_DIR$/magic_eight_ball_client.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magic_eight_ball_server.py" afterPath="$PROJECT_DIR$/magic_eight_ball_server.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,11 +20,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="magic_eight_ball_client.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="magic_eight_ball_client.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/magic_eight_ball_client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="229">
+              <caret line="103" column="4" lean-forward="false" selection-start-line="103" selection-start-column="4" selection-end-line="114" selection-end-column="49" />
               <folding>
                 <element signature="e#202#215#0" expanded="true" />
               </folding>
@@ -33,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="magic_eight_ball_server.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="magic_eight_ball_server.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/magic_eight_ball_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="48" column="18" lean-forward="true" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
+            <state relative-caret-position="314">
+              <caret line="70" column="22" lean-forward="true" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="22" />
               <folding>
                 <element signature="e#235#249#0" expanded="true" />
               </folding>
@@ -344,12 +343,12 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/magic_eight_ball_client.py</url>
-          <line>41</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/magic_eight_ball_server.py</url>
+          <line>46</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="5" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -374,22 +373,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magic_eight_ball_server.py">
+    <entry file="file://$PROJECT_DIR$/magic_eight_ball_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="48" column="18" lean-forward="true" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
+        <state relative-caret-position="229">
+          <caret line="103" column="4" lean-forward="false" selection-start-line="103" selection-start-column="4" selection-end-line="114" selection-end-column="49" />
           <folding>
-            <element signature="e#235#249#0" expanded="true" />
+            <element signature="e#202#215#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/magic_eight_ball_client.py">
+    <entry file="file://$PROJECT_DIR$/magic_eight_ball_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="314">
+          <caret line="70" column="22" lean-forward="true" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="22" />
           <folding>
-            <element signature="e#202#215#0" expanded="true" />
+            <element signature="e#235#249#0" expanded="true" />
           </folding>
         </state>
       </provider>

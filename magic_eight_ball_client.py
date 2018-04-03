@@ -61,7 +61,7 @@ class EightBallClient:
 
     def recv_next_response(self):
         """receives the next available question response"""
-        return self.recv_until_delimiters(self, RESPONSE_DELIMITERS)
+        return self.recv_until_delimiters(RESPONSE_DELIMITERS)
 
     def close(self):
         self.sock.close()
@@ -74,12 +74,13 @@ def run_interactive_client(host, port):
     #   -use the client to ask the question
     #   -use the client to receive the next response
     #   -print response
-    EightBallClient(host, port)
+    EightBall = EightBallClient(host, port)
     #looping questions
-    for i in range(TEST_QUESTIONS.length()):
-        ask_question(TEST_QUESTIONS[i])
+    for i in TEST_QUESTIONS:
+        print(i)
+        EightBall.ask_question(i)
         #recieve in loop
-        answer = recv_next_response()
+        answer = EightBall.recv_next_response()
         #print
         print(answer)
         #done

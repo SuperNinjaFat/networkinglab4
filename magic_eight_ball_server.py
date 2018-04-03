@@ -7,12 +7,30 @@ This code builds off skeleton code written by
 Prof. Joshua Auerbach (jauerbach@champlain.edu)
 """
 
-
 # Adapted from srv_asyncio1.py
 import asyncio, magic_eight_ball_client
 
+answers = [b"It is certain!",
+           b"It is decidedly so!",
+           b"Without a doubt!",
+           b"Yes definitely!",
+           b"You may rely on it!",
+           b"As I see it, yes!",
+           b"Most likely!",
+           b"Outlook good!",
+           b"Yes!",
+           b"Signs point to yes!",
+           b"Reply hazy try again!",
+           b"Ask again later!",
+           b"Better not tell you now!",
+           b"Cannot predict now!",
+           b"Concentrate and ask again!",
+           b"Don't count on it!",
+           b"My reply is no!",
+           b"My sources say no!",
+           b"Outlook not so good!",
+           b"Very doubtful!"]
 
-answers = [ b"NO!", b"I'm sorry but NO!", b"Stop asking me to do the impossible."]
 
 class EightBallServer(asyncio.Protocol):
     def connection_made(self, transport):
@@ -24,7 +42,7 @@ class EightBallServer(asyncio.Protocol):
     def data_received(self, data):
         self.data += data
         if self.data.endswith(b'?'):
-            answer = magic_eight_ball_client.get_answer(self.data) # use the answers from the wiki website
+            answer = magic_eight_ball_client.get_answer(self.data)  # use the answers from the wiki website
             self.transport.write(answer)
             self.data = b''
 
@@ -36,5 +54,3 @@ class EightBallServer(asyncio.Protocol):
                   .format(self.address, self.data))
         else:
             print('Client {} closed socket'.format(self.address))
-
-

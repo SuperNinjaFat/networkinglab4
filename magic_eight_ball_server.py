@@ -8,9 +8,11 @@ Prof. Joshua Auerbach (jauerbach@champlain.edu)
 """
 
 # Adapted from srv_asyncio1.py
-import asyncio, magic_eight_ball_client
+import asyncio
+import magic_eight_ball_client
+import random
 
-answers = [b"It is certain!",
+ANSWERS = [b"It is certain!",
            b"It is decidedly so!",
            b"Without a doubt!",
            b"Yes definitely!",
@@ -42,7 +44,7 @@ class EightBallServer(asyncio.Protocol):
     def data_received(self, data):
         self.data += data
         if self.data.endswith(b'?'):
-            answer = magic_eight_ball_client.get_answer(self.data)  # use the answers from the wiki website
+            answer = random.choice(ANSWERS)
             self.transport.write(answer)
             self.data = b''
 

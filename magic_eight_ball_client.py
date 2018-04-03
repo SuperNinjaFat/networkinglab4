@@ -13,6 +13,7 @@ import socket
 import argparse
 import time
 import magic_eight_ball_server
+
 TEST_QUESTIONS = [b'Am I awesome?', b'Will I pass this class?',
                   b'Will a single threaded server suffice?']
 

@@ -15,6 +15,8 @@ import time
 
 TEST_QUESTIONS = [b'Am I awesome?', b'Will I pass this class?', 
                   b'Will a single threaded server suffice?']
+TEST_RESPONSES = [b"It is certain!", b"Better not tell you now.", b"Don't count on it."]
+RESPONSE_DELIMITERS = [b'.', b'!']
 
 class EightBallClient:
 

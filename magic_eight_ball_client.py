@@ -12,10 +12,12 @@ Prof. Joshua Auerbach (jauerbach@champlain.edu)
 import socket
 import argparse
 import time
-
-TEST_QUESTIONS = [b'Am I awesome?', b'Will I pass this class?', 
+TEST_QUESTIONS = [b'Am I awesome?', b'Will I pass this class?',
                   b'Will a single threaded server suffice?']
-TEST_RESPONSES = [b"It is certain!", b"Better not tell you now.", b"Don't count on it."]
+
+TEST_RESPONSES = [b"It is certain!", b"Better not tell you now.",
+                  b"Don't count on it."]
+
 RESPONSE_DELIMITERS = [b'.', b'!']
 
 class EightBallClient:
@@ -53,22 +55,38 @@ class EightBallClient:
         return messages[0]
 
     def ask_question(self, question):
+        """asks the server a question"""
         pass
-        
+
     def recv_next_response(self):
-        pass
-        
+        """receives the next available question response"""
+        return self.recv_until_delimiters(self, RESPONSE_DELIMITERS)
+
     def close(self):
-        self.sock.close()
+        """closes the socket"""
+        pass
 
 
 def run_interactive_client(host, port):
+    # TODO:
+    #   -create client object
+    #   -loop asking user for questions
+    #   -use the client to ask the question
+    #   -use the client to receive the next response
+    #   -print response
     pass
 
 def run_single_test_client(host, port):
+    # TODO:
+    #   -create client object
+    #   -use the client to repeatedly ask the test questions
+    #   -use the client to get responses to all the asked questions
+    #   -make sure the responses are correct
     pass
 
 def test(host, port, workers):
+    # TODO -- create workers number of threads each
+    #       running run_single_test_client concurrently
     pass
         
         

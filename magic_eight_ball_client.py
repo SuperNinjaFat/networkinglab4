@@ -1,13 +1,19 @@
 """magic_eight_client.py
 
-TODO -- complete header docstring
+Author:              Tony Calarese, Paul Lindberg
+Class:               CSI-235
+Assignment:          Lab 4
+Date Assigned:       3/07/2018
+Due Date:            4/06/2018 11:59 PM
+Description:
+To have a working magic eight ball working on a local client and getting it to work on a
+server working on a localhost as well with the magic_eight_ball_server.py as well.
 
+This code has been adapted from that provided by Prof. Joshua Auerbach:
 Champlain College CSI-235, Spring 2018
-This code builds off skeleton code written by 
-Prof. Joshua Auerbach (jauerbach@champlain.edu)
+The following code was written by Tony Calarese (anthony.calarese@champlain.edu) and was adpted from Joshua Auberach's code for  lab 2
+Also Paul Lindberg (paul.lindberg@mymail.champlain.edu)
 """
-
-
 
 import socket
 import argparse
@@ -26,6 +32,14 @@ RESPONSE_DELIMITERS = [b'.', b'!']
 class EightBallClient:
 
     def __init__(self, host, port):
+        """"
+        This function will initialize the function and get the host and the port from the user upon running and make the connection 
+        connecting to the socket and making a TCP connection
+        args: 
+        host:: the host being connected to 
+        port:: the port being connected to 
+        
+        """"
         self.hostname = host
         self.port = port
 
@@ -35,6 +49,14 @@ class EightBallClient:
         print('Client has been assigned socket name', self.sock.getsockname())
     
     def recv_until_delimiters(self, delimiters, buffer_size=1024):
+        """"
+        This makes a message separate from the delimiters given and then thread it through a buffer for sending
+        to the connection
+        
+        Args:
+            Delimiters:: the two delimieters that were given "." and "!"
+            buffer_size:: the size of the buffere that is permittied for the message
+        """"
         byte_string = ""
         if len(self.byte_string_buffer) != 0 :
             # [len(delimiter):] == delimiter: # if the buffer doesn't end with a delimiter, put the new call
@@ -61,10 +83,17 @@ class EightBallClient:
         return messages[0] + closestdelimiter
 
     def ask_question(self, question):
-        """asks the server a question"""
+        """"
+        This function essentailly just asks the question through the arg givven called question
+        
+        """"
+
         self.sock.send(question)
 
     def recv_next_response(self):
+        """"
+        this function will filter to the next response by using the recieve until delimiters function by passing through the delimiters list 
+        """"
         """receives the next available question response"""
         return self.recv_until_delimiters(RESPONSE_DELIMITERS)
 
@@ -73,12 +102,10 @@ class EightBallClient:
 
 
 def run_interactive_client(host, port):
-    # TODO:
-    #   -create client object
-    #   -loop asking user for questions
-    #   -use the client to ask the question
-    #   -use the client to receive the next response
-    #   -print response
+        """"
+       this function runs the interactive client with the host and the port and will connect the questions 
+       and intereactions 
+        """"
     EightBall = EightBallClient(host, port)
     #looping questions
     print()
@@ -100,11 +127,10 @@ def run_interactive_client(host, port):
     EightBall.close()
 
 def run_single_test_client(host, port):
-    # TODO:
-    #   -create client object
-    #   -use the client to repeatedly ask the test questions
-    #   -use the client to get responses to all the asked questions
-    #   -make sure the responses are correct
+    """"
+    this function will run a testing of asking questions and will recieve answers based off of the 
+    TEST_ANSWERS
+    """"
     EightBall = EightBallClient(host, port)
     #looping questions
     for i in TEST_QUESTIONS:
@@ -119,8 +145,9 @@ def run_single_test_client(host, port):
         #done
 
 def test(host, port, workers):
-    # TODO -- create workers number of threads each
-    #       running run_single_test_client concurrently
+   """"
+   This function will run the run_single_test_client function accordingly to the number of workers that are listed in the arguments
+   """"
     for i in range(workers):
         t = ("csi235.site", 7000)
         Thread(target=run_single_test_client, args=t).start()

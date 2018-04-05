@@ -1,10 +1,18 @@
-"""magic_eight_ball_server.py
+"""magic_eight_server.py
 
-TODO -- complete header docstring
+Author:              Tony Calarese, Paul Lindberg
+Class:               CSI-235
+Assignment:          Lab 4
+Date Assigned:       3/07/2018
+Due Date:            4/06/2018 11:59 PM
+Description:
+To have a working magic eight ball working on a local client and getting it to work on a
+server working on a localhost as well with the magic_eight_ball_server.py as well.
 
+This code has been adapted from that provided by Prof. Joshua Auerbach:
 Champlain College CSI-235, Spring 2018
-This code builds off skeleton code written by
-Prof. Joshua Auerbach (jauerbach@champlain.edu)
+The following code was written by Tony Calarese (anthony.calarese@champlain.edu) and was adpted from Joshua Auberach's code for  lab 2
+Also Paul Lindberg (paul.lindberg@mymail.champlain.edu)
 """
 
 # Adapted from srv_asyncio1.py
@@ -37,6 +45,9 @@ ANSWERS = [b"It is certain!",
 
 class EightBallServer(asyncio.Protocol):
     def connection_made(self, transport):
+        """"
+        This function will make sure that the function is properly connecting and verify the connection that is being made
+        """"
         self.transport = transport
         self.address = transport.get_extra_info('peername')
         self.data = b''
@@ -44,6 +55,9 @@ class EightBallServer(asyncio.Protocol):
 
     # most changed part
     def data_received(self, data):
+        """"
+        This will buffer the data that is being received from the client
+        """"
         self.data += data
         if self.data.endswith(b'?'):
             answer = random.choice(ANSWERS)
@@ -51,6 +65,9 @@ class EightBallServer(asyncio.Protocol):
             self.data = b''
 
     def connection_lost(self, exc):
+        """"
+        This function will conqure if the connection is lost and will respond corelating to what has happened to the port and such
+        """"
         if exc:
             print('Client {} error: {}'.format(self.address, exc))
         elif self.data:

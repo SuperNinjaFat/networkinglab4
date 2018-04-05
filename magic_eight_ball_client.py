@@ -80,6 +80,32 @@ def run_interactive_client(host, port):
     #   -print response
     EightBall = EightBallClient(host, port)
     #looping questions
+    print()
+    print("I am the mysterious magic 8-Ball.")
+    print("Ask me a yes-or-no question! Type \"q\" to quit!")
+    while True:
+        print()
+        question = input("8-Ball Question: ")
+        if question is ('q'):
+            break
+        elif question.endswith("?") and question.count("?") is 1:
+            EightBall.ask_question(question.encode())
+            #recieve in loop
+            answer = EightBall.recv_next_response()
+            #print
+            print(answer)
+        else:
+            print("Bad question syntax.")
+    EightBall.close()
+
+def run_single_test_client(host, port):
+    # TODO:
+    #   -create client object
+    #   -use the client to repeatedly ask the test questions
+    #   -use the client to get responses to all the asked questions
+    #   -make sure the responses are correct
+    EightBall = EightBallClient(host, port)
+    #looping questions
     for i in TEST_QUESTIONS:
         print()
         print(i)
@@ -91,19 +117,10 @@ def run_interactive_client(host, port):
         print(answer)
         #done
 
-def run_single_test_client(host, port):
-    # TODO:
-    #   -create client object
-    #   -use the client to repeatedly ask the test questions
-    #   -use the client to get responses to all the asked questions
-    #   -make sure the responses are correct
-    pass
-
 def test(host, port, workers):
     # TODO -- create workers number of threads each
     #       running run_single_test_client concurrently
-
-    pass
+    run_single_test_client("csi235.site", 7000)
         
         
 if __name__ == '__main__':

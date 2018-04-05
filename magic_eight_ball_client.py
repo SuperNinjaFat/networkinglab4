@@ -57,7 +57,7 @@ class EightBallClient:
         #zero is what we want to return and the one position is what we put in buffer
         self.byte_string_buffer = messages[1]
         # and return the first one in the list.
-        return messages[0]
+        return messages[0] + closestdelimiter
 
     def ask_question(self, question):
         """asks the server a question"""

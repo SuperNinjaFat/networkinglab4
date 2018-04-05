@@ -13,6 +13,7 @@ import socket
 import argparse
 import time
 import magic_eight_ball_server
+from threading import Thread
 
 TEST_QUESTIONS = [b'Am I awesome?', b'Will I pass this class?',
                   b'Will a single threaded server suffice?']
@@ -108,19 +109,21 @@ def run_single_test_client(host, port):
     #looping questions
     for i in TEST_QUESTIONS:
         print()
-        print(i)
+        print(EightBall.sock.getsockname(),i)
         EightBall.ask_question(i)
         #recieve in loop
         answer = EightBall.recv_next_response()
         #print
 
-        print(answer)
+        print(EightBall.sock.getsockname(),answer)
         #done
 
 def test(host, port, workers):
     # TODO -- create workers number of threads each
     #       running run_single_test_client concurrently
-    run_single_test_client("csi235.site", 7000)
+    for i in range(workers):
+        t = ("csi235.site", 7000)
+        Thread(target=run_single_test_client, args=t).start()
         
         
 if __name__ == '__main__':

@@ -81,11 +81,13 @@ def run_interactive_client(host, port):
     EightBall = EightBallClient(host, port)
     #looping questions
     for i in TEST_QUESTIONS:
+        print()
         print(i)
         EightBall.ask_question(i)
         #recieve in loop
         answer = EightBall.recv_next_response()
         #print
+
         print(answer)
         #done
 
@@ -100,6 +102,7 @@ def run_single_test_client(host, port):
 def test(host, port, workers):
     # TODO -- create workers number of threads each
     #       running run_single_test_client concurrently
+
     pass
         
         

@@ -33,23 +33,26 @@ class EightBallClient:
         self.byte_string_buffer = ""
         print('Client has been assigned socket name', self.sock.getsockname())
     
-    def recv_until_delimiters(self, delimiters, buffer_size=1024) :
+    def recv_until_delimiters(self, delimiters, buffer_size=1024):
         byte_string = ""
         if len(self.byte_string_buffer) != 0 :
             # [len(delimiter):] == delimiter: # if the buffer doesn't end with a delimiter, put the new call
             byte_string = self.byte_string_buffer
         else:
             byte_string = self.sock.recv(buffer_size)
-
-        for delimiter_temp in delimiters:
-            while byte_string.find(delimiter_temp) == -1:  # if delimiter is not included, then merge.
-                temp_byte_string = self.sock.recv(buffer_size)
-                byte_string = b"".join((byte_string, temp_byte_string))
-                if temp_byte_string == b"":
-                    raise EOFError('Socket Closed or Down')
+        while not any(i in byte_string for i in delimiters):  # if delimiter is not included, then merge.
+            temp_byte_string = self.sock.recv(buffer_size)
+            byte_string = b"".join((byte_string, temp_byte_string))
+            if temp_byte_string == b"":
+                raise EOFError('Socket Closed or Down')
         # Now that there is a delimiter, either return the message that ends with a delimiter
+        closestdelimiter_number = 0
+        closestdelimiter = b''
+        for i in range(len(delimiters)):
+            if byte_string.find(delimiters[i]) >= closestdelimiter_number:
+                closestdelimiter = delimiters[i]  # take the lower indices that the delimiter is found at and then use that delimiter to split the string
 
-        messages = byte_string.split(delimiter_temp, 1)#### Not sure that delimiter_temp is the right variable.
+        messages = byte_string.split(closestdelimiter, 1)#### Not sure that delimiter_temp is the right variable.
 
         #zero is what we want to return and the one position is what we put in buffer
         self.byte_string_buffer = messages[1]
@@ -58,7 +61,7 @@ class EightBallClient:
 
     def ask_question(self, question):
         """asks the server a question"""
-        pass
+        self.sock.send(question)
 
     def recv_next_response(self):
         """receives the next available question response"""

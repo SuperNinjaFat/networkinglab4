@@ -9,6 +9,7 @@ Prof. Joshua Auerbach (jauerbach@champlain.edu)
 
 # Adapted from srv_asyncio1.py
 import asyncio
+import argparse
 import magic_eight_ball_client
 import random
 
@@ -41,6 +42,7 @@ class EightBallServer(asyncio.Protocol):
         self.data = b''
         print('Accepted connection from {}'.format(self.address))
 
+    # most changed part
     def data_received(self, data):
         self.data += data
         if self.data.endswith(b'?'):
@@ -59,28 +61,14 @@ class EightBallServer(asyncio.Protocol):
 
 
 if __name__ == '__main__':
-    #EDIT THIS PASTED IN CODE
-    address = zen_utils.parse_command_line('asyncio server using callbacks')
+    #address = "localhost"# 127.0.0.1 #localhost
     loop = asyncio.get_event_loop()
-    coro = loop.create_server(ZenServer, *address)
+    coro = loop.create_server(EightBallServer, "localhost", 7000)
     server = loop.run_until_complete(coro)
-    print('Listening at {}'.format(address))
+    print('Listening at {}'.format("localhost"))
     try:
         loop.run_forever()
     finally:
         server.close()
         loop.close()
 
-    #EDIT THIS PASTED IN CODE
-    parser = argparse.ArgumentParser(description='Example client')
-    parser.add_argument('host', help='IP or hostname')
-    parser.add_argument('-p', metavar='port', type=int, default=7000,
-                        help='TCP port (default 7000)')
-    parser.add_argument('-t', action='store_true', help='test mode')
-    parser.add_argument('-n', metavar='num threads', type=int, default=4,
-                        help='Num threads for test mode')
-    args = parser.parse_args()
-    if args.t:
-        test(args.host, args.p, args.n)
-    else:
-        run_interactive_client(args.host, args.p)
